@@ -1,34 +1,37 @@
 # Advanced Weather Dashboard
 
-## Description
+**A full weather dashboard — current conditions, 5-day and hourly forecast, air quality and UV index — with a server-side proxy keeping the API keys private.**
 
-Advanced Weather Dashboard is a sophisticated weather application that provides users with detailed weather information, including current conditions, 5-day forecast, air quality, and UV index. The app leverages asynchronous JavaScript functions to fetch data from the OpenWeatherMap API and display it in a user-friendly interface. The application also includes a dark mode toggle for a customized user experience.
+**[Live page](https://anastacodes.github.io/AdvancedWeatherFetcher/)** · *Note: the backend proxy was hosted on Adaptable.app, which has since shut down, so the live page currently loads without data. Deploy your own [WeatherProxyServer](https://github.com/AnastaCodes/WeatherProxyServer) instance to bring it back (see below).*
 
 ## Features
 
-- **Current Weather**: Displays the current temperature, weather conditions, humidity, pressure, wind speed, and sunrise/sunset times.
-- **5-Day Forecast**: Provides a 5-day weather forecast with detailed daily conditions.
-- **Air Quality Index (AQI)**: Shows real-time air quality data, including CO, NO, NO2, O3, SO2, PM2.5, PM10, and NH3 levels.
-- **UV Index**: Displays the current UV index for the selected location.
-- **Dark Mode**: Includes a toggle switch for dark mode, enhancing the visual experience.
-- **Location Detection**: Automatically detects the user's location using the browser's geolocation API or IP address as a fallback.
-- **City Search**: Allows users to search for weather information by city name.
+- **Current weather**: temperature, conditions, humidity, pressure, wind, sunrise/sunset
+- **5-day forecast** and **hourly forecast**
+- **Air Quality Index**: CO, NO₂, O₃, SO₂, PM2.5, PM10 and more
+- **UV index** for the selected location
+- **Dark mode** toggle, persisted in `localStorage`
+- **Location detection**: browser geolocation with IP-address fallback
+- City search
 
-## Demo
+## Architecture
 
-You can use the application [here](https://anastacodes.github.io/AdvancedWeatherFetcher/).
+```
+Browser (this app) ──▶ WeatherProxyServer (PHP) ──▶ OpenWeatherMap / ipify
+```
 
-## Technologies Used
+The frontend never sees the API keys — all requests go through [WeatherProxyServer](https://github.com/AnastaCodes/WeatherProxyServer), a small PHP proxy that holds the keys in server-side environment variables.
 
-- HTML
-- CSS
-- JavaScript
-- OpenWeatherMap API
+## Tech stack
+
+Vanilla HTML / CSS / JavaScript · OpenWeatherMap API · PHP proxy backend
+
+## Run locally
+
+1. Deploy [WeatherProxyServer](https://github.com/AnastaCodes/WeatherProxyServer) (any PHP host works) with your OpenWeatherMap and ipify keys.
+2. Point the proxy URL in `app.js` to your instance.
+3. Serve this folder, e.g. `npx serve .`
 
 ## Acknowledgments
 
-- Thanks to OpenWeatherMap for the API used in this project.
-
-## Contact
-
-If you have any questions or suggestions, please feel free to reach out.
+- Weather data by [OpenWeatherMap](https://openweathermap.org/).
